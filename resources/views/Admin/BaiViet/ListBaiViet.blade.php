@@ -34,7 +34,7 @@
                                     <img width="100px" src="{{url('storage/upload/tintuc')}}/{{$bv->Hinh}}"/>
                                 </td>
                                 <td>{{$bv->TomTat}}</td>
-                                <td>{{$bv->NoiDung}}</td>
+                                <td>{!!$bv->NoiDung!!}</td>
                                 <td>{{$bv->loaichuyenmuc->chuyenmuc->Ten}}</td>
                                 <td>{{$bv->loaichuyenmuc->Ten}}</td>
                                 <td>

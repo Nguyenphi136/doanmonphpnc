@@ -120,6 +120,6 @@ class LoaiChuyenMucController extends Controller
     {
         $loaichuyenmuc = LoaiChuyenMuc::find($id);
         $loaichuyenmuc->delete();
-        return redirect('admin\loaichuyenmuc\listloaichuyenmuc');
+        return redirect('admin\loaichuyenmuc\danhsach');
     }
 }

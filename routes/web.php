@@ -19,9 +19,11 @@
   //  Route::get('/home',['as'=>'/home','uses'=> 'ChuyenMucController@index']);
 //});
 
+Route::get('admin/dangnhap','UserController@getdangnhapAdmin');
+Route::post('admin/dangnhap','UserController@postdangnhapAdmin');
+Route::get('admin/logout','UserController@getdangxuatAdmin');
 
-
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
     Route::group(['prefix'=>'chuyenmuc'],function(){
         Route::get('/danhsach', 'ChuyenMucController@index')->name('chuyenmuc.index');
         Route::get('/them', 'ChuyenMucController@create')->name('chuyenmuc.create');
@@ -42,17 +44,25 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('/danhsach', 'BaiVietController@index')->name('baiviet.index');
         Route::get('/them', 'BaiVietController@create')->name('baiviet.create');
         Route::post('/them', 'BaiVietController@store')->name('baiviet.store');
-        Route::get('{id}/sua', 'BaiVietController@edit')->name('baiviet.edit');
-        Route::post('{id}/sua','BaiVietController@update')->name('baiviet.update');
+        Route::get('/sua/{id}', 'BaiVietController@edit')->name('baiviet.edit');
+        Route::post('/sua/{id}','BaiVietController@update')->name('baiviet.update');
         Route::get('{id}/xoa','BaiVietController@destroy')->name('baiviet.delete');
         Route::get('ajax/loaichuyenmuc/{idChuyenMuc}','AjaxController@index');
     });
+    Route::group(['prefix'=>'user'],function(){
+        Route::get('/danhsach', 'UserController@index')->name('User.index');
+        Route::get('/them', 'UserController@create')->name('User.create');
+        Route::post('/them', 'UserController@store')->name('User.store');
+        Route::get('/sua/{id}', 'UserController@edit')->name('User.edit');
+        Route::post('/sua/{id}', 'UserController@update')->name('User.update');
+        Route::get('{id}/xoa/', 'UserController@destroy')->name('User.delete');
+    });
     Route::group(['prefix'=>'binhluan'],function(){
         Route::get('/danhsach', 'BinhLuanController@index')->name('binhluan.index');
-        Route::get('/them', 'BinhLuanController@create')->name('binhluan.create');
+        Route::get('/duyet/{id}', 'BinhLuanController@duyet')->name('binhluan.duyet');
         Route::post('/them', 'BinhLuanController@store')->name('binhluan.store');
-        Route::get('{id}/sua', 'BinhLuanController@edit')->name('binhluan.edit');
-        Route::post('{id}/sua','BinhLuanController@update')->name('binhluan.update');
+        Route::get('/sua/{id}', 'BinhLuanController@edit')->name('binhluan.edit');
+        Route::post('/sua/{id}','BinhLuanController@update')->name('binhluan.update');
         Route::get('{id}/xoa','BinhLuanController@destroy')->name('binhluan.delete');
         
     });

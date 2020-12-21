@@ -7,7 +7,7 @@
     <meta name="description" content="Khóa Học Lập Trình Laravel Framework 5.x Tại Khoa Phạm">
     <meta name="author" content="">
     <title>Admin </title>
-
+    <base href="{{asset('')}}"/>
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('giaodien_admin/bower_components/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -51,13 +51,15 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    @if(Auth::check()) 
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i>{{Auth::user()->name}}</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="admin/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
+                        @endif
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
@@ -119,14 +121,24 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Tài Khoản<span class="fa arrow"></span></a>
+                            <a href="{{route('User.index')}}"><i class="fa fa-users fa-fw"></i> Tài Khoản<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Danh Sách Tài Khoản</a>
+                                    <a href="{{route('User.index')}}">Danh Sách Tài Khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Thêm Tài Khoản</a>
+                                    <a href="{{route('User.create')}}">Thêm Tài Khoản</a>
                                 </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="{{route('binhluan.index')}}"><i class="fa fa-users fa-fw"></i> Bình Luận<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{route('binhluan.index')}}">Danh Sách Bình Luận</a>
+                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

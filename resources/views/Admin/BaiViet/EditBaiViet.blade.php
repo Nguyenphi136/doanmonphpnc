@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Bài Viết
-                            <small>Sửa</small>
+                            <small>{{$baiviet->TieuDe}}</small>
                         </h1>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -24,14 +24,14 @@
                     {{session('thongbao')}}
                     </div>
                     @endif  
-
-                        <form action="{{route('baiviet.update',$baiviet.id)}}" method="POST" enctype="multipart/form-data">
+                    
+                        <form action="{{route('baiviet.update',$baiviet->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                             <label>Chuyên Mục</label>
                             <select class="form-control" name="chuyenmuc" id="chuyenmuc">
                             @foreach($chuyenmuc as $cm)
-                            <option value="{{$cm->id}}">{{$cm->Ten}}</option>
+                            <option @if($baiviet->loaichuyenmuc->chuyenmuc->id == $cm->id) {{"selected"}} @endif value="{{$cm->id}}">{{$cm->Ten}}</option>
                             @endforeach
                             </select>
                             </div>
@@ -39,37 +39,52 @@
                             <label> Loại Chuyên Mục</label>
                             <select class="form-control" name="loaichuyenmuc" id="loaichuyenmuc">
                             @foreach($loaichuyenmuc as $lcm)
-                            <option value="{{$lcm->id}}">{{$lcm->Ten}}</option>
+                            <option  @if($baiviet->loaichuyenmuc->id == $lcm->id) {{"selected"}} @endif value="{{$lcm->id}}">{{$lcm->Ten}}</option>
                             @endforeach
                             </select>
                             </div>
                             <div class="form-group">
                                 <label>Tiêu đề</label>
-                                <input class="form-control" name="tieude"/>
+                                <input class="form-control" name="tieude" value="{{$baiviet->TieuDe}}"/>
                             </div>
                            
                             <div class="form-group">
                                 <label>Tóm tắt</label>
-                                <textarea id="demo"  class="form-control ckeditor" rows="3" name="tomtat"></textarea>
+                                <textarea id="demo"  class="form-control ckeditor" rows="3" name="tomtat">
+                                {{$baiviet->TomTat}}
+                                </textarea>
                             </div>
                             <div class="form-group">
                                 <label>Nội dung</label>
-                                <textarea id="demo" class="form-control ckeditor" rows="5" name="noidung"></textarea>
+                                <textarea id="demo" class="form-control ckeditor" rows="5" name="noidung">
+                                {{$baiviet->NoiDung}}
+                                </textarea>
                             </div>
                             <div class="form-group">
                                 <label>Hình</label>
+                                <p>
+                                <img width="100px" src="{{url('storage/upload/tintuc')}}/{{$baiviet->Hinh}}"/>
+                                </p>
                                 <input type="file" name="product_image">
                             </div>
                             <div class="form-group">
                                 <label>Nổi bật</label>
                                 <label class="radio-inline">
-                                <input name="noibat" value="0" checked="" type= "radio"  />Không
+                                <input name="noibat" value="0"
+                                @if ($baiviet->NoiBat == 0) 
+                                {{"checked"}}
+                                @endif
+                                 type= "radio"  />Không
                                 </label>
                                 <label class="radio-inline">
-                                <input name="noibat" value="1" checked="" type= "radio"  />Có
+                                <input name="noibat" value="1"
+                                @if ($baiviet->NoiBat == 1) 
+                                {{"checked"}}
+                                @endif
+                                  type= "radio"  />Có
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-default">Add</button>
+                            <button type="submit" class="btn btn-default">Sua</button>
                             <button type="reset" class="btn btn-default">Reset</button>
                         <form>
                     </div>

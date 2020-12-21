@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <title>Admin </title>
-
+    <base href="{{asset('')}}"/>
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('giaodien_admin/bower_components/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -33,7 +33,8 @@
                         <h3 class="panel-title">ĐĂNG NHẬP</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="" method="POST">
+                    
+                        <form role="form" action="admin/dangnhap" method="POST">
                         @csrf
                             <fieldset>
                                 <div class="form-group">

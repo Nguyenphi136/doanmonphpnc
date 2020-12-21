@@ -99,9 +99,10 @@ class BaiVietController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit($id)
-    {
-        $bv = BaiViet::find($id);
-        return view('admin\baiviet\editbaiviet', compact('bv'));
+    {   $chuyenmuc= ChuyenMuc::all();
+        $loaichuyenmuc =LoaiChuyenMuc::all();
+        $baiviet = BaiViet::find($id);
+        return view('admin\baiviet\editbaiviet',['baiviet'=>$baiviet,'chuyenmuc'=>$chuyenmuc,'loaichuyenmuc'=>$loaichuyenmuc]);
     }
 
     /**
@@ -111,8 +112,9 @@ class BaiVietController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request,  $id)
     {
+        
 //        dd($request);
         $this->validate($request,[
             'product_image' => 'mimes:jpeg,jpg,png,gif|max:10000'
@@ -123,23 +125,29 @@ class BaiVietController extends Controller
             $filename = pathinfo($image_name,PATHINFO_FILENAME);
             $image_ext = $request->file('product_image')->getClientOriginalExtension();
             $fileNameToStore = $filename.'-'.time().'.'.$image_ext;
-            $path =  $request->file('product_image')->storeAs('public/Upload/tintuc',$fileNameToStore);
+           // unlink("storage/upload/tintuc/".$baiviet->Hinh);
+            $path =  $request->file('product_image')->storeAs('',$fileNameToStore);
         }
+    
         else{
             $fileNameToStore = 'noimage.jpg';
+        
         }
+    
+       
 
         $baiviet = BaiViet::findOrFail($id);
 //        dd($baiviet);
         $baiviet->TieuDe = $request['tieude'];
-        $baiviet->TenKhongDau=str_slug($request->tieude,'-');
+        $baiviet->TieuDeKhongDau=str_slug($request->tieude,'-');
         $baiviet->TomTat = $request['tomtat'];
         $baiviet->NoiDung = $request['noidung'];
         $baiviet->Hinh = $fileNameToStore;
         $baiviet->NoiBat = $request['noibat'];
-        $baiviet->IdLoaiChuyenMuc = $request['loaichuyenmuc'];
+        $baiviet->idLoaiChuyenMuc = $request['loaichuyenmuc'];
         $baiviet->save();
         return redirect()->route('baiviet.index');
+       
     }
 
     /**

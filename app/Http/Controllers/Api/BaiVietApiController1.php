@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\BaiViet;
-use App\User;
-use App\BinhLuan;
 
-class BinhLuanController extends Controller
+class BaiVietApiController1 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +15,11 @@ class BinhLuanController extends Controller
      */
     public function index()
     {
-        $binhluan = BinhLuan::all();
-        return view('admin\binhluan\duyetbinhluan',['binhluan'=>$binhluan]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $baiviet=BaiViet::all();
+        
+        return response()->json([
+            'baiViet'  => $baiviet
+        ]);
     }
 
     /**
@@ -53,17 +45,6 @@ class BinhLuanController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -83,17 +64,6 @@ class BinhLuanController extends Controller
      */
     public function destroy($id)
     {
-        $binhluan = BinhLuan::find($id);
-        $binhluan->delete();
-        return redirect()->route('binhluan.index');
+        //
     }
-    public function duyet($id)
-    {
-        $binhluan = BinhLuan::find($id);
-        $binhluan->DaDuyet=1;
-        
-        $binhluan->save();
-        return redirect()->route('binhluan.index');
-    }
-
 }

@@ -20,6 +20,7 @@ class CreateBinhLuan extends Migration
             $table->bigInteger('idBaiViet')->unsigned();
             $table->foreign('idBaiViet')->references('id')->on('BaiViet')->onDelete('cascade');
             $table->string('NoiDung');
+            $table->boolean('DaDuyet')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

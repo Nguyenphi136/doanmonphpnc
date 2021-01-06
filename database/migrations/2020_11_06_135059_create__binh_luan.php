@@ -16,7 +16,7 @@ class CreateBinhLuan extends Migration
         Schema::create('BinhLuan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('idUser')->unsigned();
-            $table->foreign('idUser')->references('id')->on('Users')->onDelete('cascade');
+            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('idBaiViet')->unsigned();
             $table->foreign('idBaiViet')->references('id')->on('BaiViet')->onDelete('cascade');
             $table->string('NoiDung');

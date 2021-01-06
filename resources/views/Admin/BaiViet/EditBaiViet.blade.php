@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label>Hình</label>
                                 <p>
-                                <img width="100px" src="{{url('storage/upload/tintuc')}}/{{$baiviet->Hinh}}"/>
+                                <img width="100px"  src="{{url('storage/upload/tintuc')}}/{{$baiviet->Hinh}}"/>
                                 </p>
                                 <input type="file" name="product_image">
                             </div>
@@ -100,7 +100,7 @@
 $(document).ready(function(){
     $("#chuyenmuc").change(function(){
         var idChuyenMuc = $(this).val();
-      $.get("ajax/loaichuyenmuc/"+idChuyenMuc,function(data){
+      $.get("admin/ajax/loaichuyenmuc/"+idChuyenMuc,function(data){
         $("#loaichuyenmuc").html(data);
       });
     });

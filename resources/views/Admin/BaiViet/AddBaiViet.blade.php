@@ -85,7 +85,7 @@
 $(document).ready(function(){
     $("#chuyenmuc").change(function(){
         var idChuyenMuc = $(this).val();
-      $.get("ajax/loaichuyenmuc/"+idChuyenMuc,function(data){
+      $.get("admin/ajax/loaichuyenmuc/"+idChuyenMuc,function(data){
         $("#loaichuyenmuc").html(data);
       });
     });

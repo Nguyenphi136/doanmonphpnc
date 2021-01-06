@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\BaiViet;
 use App\ChuyenMuc;
 use App\LoaiChuyenMuc;
+use App\BinhLuan;
 
 class BaiVietController extends Controller
 {
@@ -22,7 +23,13 @@ class BaiVietController extends Controller
 
         return view('admin\baiviet\listbaiviet',['baiviet'=>$baiviet]);
     }
-
+ function binhluan($id )
+ {
+    
+     $baiviet = BaiViet::find($id);
+     return view('admin\baiviet\binhluancuabaiviet',['baiviet'=>$baiviet]);
+ }
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -114,7 +121,7 @@ class BaiVietController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        
+        $baiviet = BaiViet::findOrFail($id);
 //        dd($request);
         $this->validate($request,[
             'product_image' => 'mimes:jpeg,jpg,png,gif|max:10000'
@@ -127,22 +134,15 @@ class BaiVietController extends Controller
             $fileNameToStore = $filename.'-'.time().'.'.$image_ext;
            // unlink("storage/upload/tintuc/".$baiviet->Hinh);
             $path =  $request->file('product_image')->storeAs('',$fileNameToStore);
+            $baiviet->Hinh = $fileNameToStore;
         }
-    
-        else{
-            $fileNameToStore = 'noimage.jpg';
-        
-        }
-    
-       
-
-        $baiviet = BaiViet::findOrFail($id);
+      
 //        dd($baiviet);
         $baiviet->TieuDe = $request['tieude'];
         $baiviet->TieuDeKhongDau=str_slug($request->tieude,'-');
         $baiviet->TomTat = $request['tomtat'];
         $baiviet->NoiDung = $request['noidung'];
-        $baiviet->Hinh = $fileNameToStore;
+        
         $baiviet->NoiBat = $request['noibat'];
         $baiviet->idLoaiChuyenMuc = $request['loaichuyenmuc'];
         $baiviet->save();

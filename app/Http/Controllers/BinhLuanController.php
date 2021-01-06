@@ -87,6 +87,13 @@ class BinhLuanController extends Controller
         $binhluan->delete();
         return redirect()->route('binhluan.index');
     }
+    public function xoabinhluan($id )
+ {
+   // $baiviet = BaiViet::find($id);
+     $binhluan = BinhLuan::find($id);
+     $binhluan->delete();
+     return redirect('admin/baiviet/binhluan');
+ }
     public function duyet($id)
     {
         $binhluan = BinhLuan::find($id);

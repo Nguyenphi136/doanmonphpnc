@@ -47,6 +47,7 @@
                                 <td>{{$bv->SoLuotXem}}</td>
                                 <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{route('baiviet.delete',$bv->id)}}"> Xóa</a></td>
                                 <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{route('baiviet.edit',$bv->id)}}">Sửa</a></td>
+                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{route('baiviet.binhluan',$bv->id)}}">Danh Sách Bình Luận</a></td>
                             </tr>
                             @endforeach
 

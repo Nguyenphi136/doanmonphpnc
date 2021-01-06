@@ -48,6 +48,8 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
         Route::post('/sua/{id}','BaiVietController@update')->name('baiviet.update');
         Route::get('{id}/xoa','BaiVietController@destroy')->name('baiviet.delete');
         Route::get('ajax/loaichuyenmuc/{idChuyenMuc}','AjaxController@index');
+        Route::get('/binhluan/{id}', 'BaiVietController@binhluan')->name('baiviet.binhluan');
+        
     });
     Route::group(['prefix'=>'user'],function(){
         Route::get('/danhsach', 'UserController@index')->name('User.index');
@@ -64,7 +66,11 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
         Route::get('/sua/{id}', 'BinhLuanController@edit')->name('binhluan.edit');
         Route::post('/sua/{id}','BinhLuanController@update')->name('binhluan.update');
         Route::get('{id}/xoa','BinhLuanController@destroy')->name('binhluan.delete');
+        Route::get('/xoa/{id}','BinhLuanController@xoabinhluan')->name('binhluan.xoabinhluan');
         
+    });
+    Route::group(['prefix'=>'ajax'],function(){
+        Route::get('loaichuyenmuc/{idChuyenMuc}', 'AjaxController@index');
     });
     
 });
